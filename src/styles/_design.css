@@ -1,0 +1,32 @@
+body {
+  --bg-1: #1c1e2b;
+  --bg-2: #232534;
+  --bg-3: #34384e;
+  --bg-0: #00041c;
+  --text-normal: #fbfbff;
+  --text-accent: #bfc7fb;
+  --text-grey: #bfc1ce;
+  --error: #f34d63;
+  --success: #00b318;
+  --positive: #136c21;
+  --positive-text: #bfd5c2;
+  --negative: #821717;
+  --negative-text: #eabfbf;
+  --accent: #4d63f3;
+  --accent-light: #99a6f8;
+  --accent-dark: #001dd6;
+  --contrast-bg-0: #eeeeff;
+  --contrast-bg-1: #f3f3ff;
+  --contrast-text: #00041c;
+  --contrast-text-accent: #00138f;
+  --box-shadow: 1px 0px rgba(105, 105, 113, 0.5),
+    -1px 0px rgba(105, 105, 113, 0.5), 0px 1px rgba(105, 105, 113, 0.5),
+    0px -1px rgba(105, 105, 113, 0.5);
+  --border-radius: 1.75em;
+}
+
+p,
+div,
+button {
+  font-family: "Source Sans Pro", sans-serif;
+}

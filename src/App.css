@@ -1,4 +1,55 @@
+@import './index.css';
+
 .App {
   text-align: center;
 }
 
+.container--calculator {
+  margin: 1rem 20vw;
+  padding: 1rem;
+  background: var(--bg-1);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+}
+
+.container--displays {
+  background: var(--bg-2);
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.container--buttons {
+  padding: 10px;
+}
+
+.container--buttons--numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container--buttons--clear {
+  padding: 10px;
+}
+
+input {
+  margin: 1rem;
+  padding: .5rem;
+  background: var(--bg-3);
+  color: var(--text-normal);
+  border: .25rem solid var(--accent);
+  flex-grow: 1;
+}
+
+p {
+  margin: 1rem;
+  padding: .5rem;
+  color: var(--text-normal);
+  border: .25rem solid var(--accent);
+  background: var(--bg-3);
+  flex-grow: .25;
+}
