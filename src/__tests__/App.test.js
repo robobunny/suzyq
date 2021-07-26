@@ -81,7 +81,7 @@ describe('Calculator App', () => {
         expect(displays[1]).toHaveValue('11');
     });
     it('should clear active display on click clear button', () => {
-        const {getByRole} = render(<App/>);
+        const {getByRole, getAllByRole} = render(<App/>);
         const clearBtn = getByRole('button', {name: 'clear'});
         const button1 = getByRole('button', {name: '1'});
         const displays = getAllByRole('textbox');
@@ -91,7 +91,7 @@ describe('Calculator App', () => {
         expect(displays[0]).toHaveValue('0');
     });
     it('should clear both displays on click clear all button', () => {
-        const {getByRole} = render(<App/>);
+        const {getByRole, getAllByRole} = render(<App/>);
         const clearAllBtn = getByRole('button', {name: 'clear all'});
         const button1 = getByRole('button', {name: '1'});
         const plusBtn= getByRole('button', {name: 'plus'});
