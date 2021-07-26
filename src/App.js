@@ -39,6 +39,8 @@ export default function App() {
     const clearAll = () => {
         setOperands([0, 0]);
         setActiveDisp(0);
+        _setOperator(undefined);
+        setResult(undefined);
     };
     const calculate = () => {
         setResult(operator.operation(...operands));
@@ -46,32 +48,26 @@ export default function App() {
     return (
       <div className='container--calculator'>
         <div className='container--displays'>
-          <Display 
-            value={operands[0]}
-            index={0}
-            onChangeInput={setInputs}
-            setActiveDisp={setActiveDisp}/>
-          <p className='display--operator' aria-label='operator'>
-            {operator?.display || ''}
-          </p>  
-          <Display 
-            value={operands[1]}
-            index={1}
-            onChangeInput={setInputs}
-            setActiveDisp={setActiveDisp}/>
+          <div className='container--operation'>
+            <Display 
+              value={operands[0]}
+              index={0}
+              onChangeInput={setInputs}
+              setActiveDisp={setActiveDisp}/>
+            <p className='display--operator' aria-label='operator'>
+              {operator?.display || ''}
+            </p>  
+            <Display 
+              value={operands[1]}
+              index={1}
+              onChangeInput={setInputs}
+              setActiveDisp={setActiveDisp}/>
+          </div>
           <p className='display--result' aria-label='result'>
-            {result || ''}
+            {result || '0'}
           </p>
         </div>
         <div className='container--buttons'>
-          <NumberButtons
-            onClick={(v)=>{
-              setInputs(activeDisp, operands[activeDisp].toString() 
-                  + v.toString());
-            }}/>
-          <OperatorButtons 
-            operators={operators}
-            setOperator={setOperator}/>
           <div className='container--buttons--clear'>
             <button
               className='button--clear'
@@ -87,6 +83,16 @@ export default function App() {
             >
               CA
             </button>
+          </div>
+          <div className='container--buttons--num-oper'>
+            <NumberButtons
+              onClick={(v)=>{
+                setInputs(activeDisp, operands[activeDisp].toString() 
+                    + v.toString());
+              }}/>
+            <OperatorButtons 
+              operators={operators}
+              setOperator={setOperator}/>
           </div>
           <button className='button--calculate' onClick={calculate}>
             Calculate!

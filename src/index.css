@@ -15,8 +15,8 @@ body {
 }
 
 button {
-  margin: 0.5em;
-  padding: 0.75rem 1.25rem;
+  margin: .5em;
+  padding: .5rem;
   border-radius: var(--border-radius);
   border: 3px solid var(--accent);
   background-color: var(--accent);
@@ -30,4 +30,8 @@ button:hover {
 
 h1 {
   color: var(--text-accent);
+  padding: .25rem;
+  font-size: min(8vw, 40px);
+  text-align: center;
 }
+

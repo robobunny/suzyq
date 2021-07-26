@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
+    <h1>Suzy's Calculator</h1>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
