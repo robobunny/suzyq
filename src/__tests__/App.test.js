@@ -4,7 +4,7 @@ import App from '../App.js';
 
 describe('Calculator App', () => {
     it('should perform calculations correctly', () => {
-        const {getByRole, getByText} = render(<App/>);
+        const {getByRole, getByText, getByLabelText} = render(<App/>);
         const button1 = getByRole('button', {name: '1'});
         const button2 = getByRole('button', {name: '2'});
         const button3 = getByRole('button', {name: '3'});
@@ -12,14 +12,12 @@ describe('Calculator App', () => {
         const minus = getByRole('button', {name: 'minus'});
         const clear = getByRole('button', {name: 'clear'});
         const calculate = getByRole('button', {name: 'Calculate!'});
+        const display = getByLabelText('result');
         userEvent.click(button1);
         userEvent.click(plus);
         userEvent.click(button1);
         userEvent.click(calculate);
-        const all2 = getByText('2');
-        // one for the display and one for the button
-        // XXX there's got to be a better way to test this
-        expect(all2.length).toBe(2);
+        expect(display.textContent).toBe('2');
     });
     it('should update active display when number buttons are pushed', () => {
         const {getAllByRole, getByText} = render(<App/>);
