@@ -79,5 +79,31 @@ describe('Calculator App', () => {
         userEvent.click(button1);
         expect(displays[0]).toHaveValue('1');
         expect(displays[1]).toHaveValue('11');
-    })
+    });
+    it('should clear active display on click clear button', () => {
+        const {getByRole} = render(<App/>);
+        const clearBtn = getByRole('button', {name: 'clear'});
+        const button1 = getByRole('button', {name: '1'});
+        const displays = getAllByRole('textbox');
+        userEvent.click(button1);
+        userEvent.click(button1);
+        userEvent.click(clearBtn);
+        expect(displays[0]).toHaveValue('0');
+    });
+    it('should clear both displays on click clear all button', () => {
+        const {getByRole} = render(<App/>);
+        const clearAllBtn = getByRole('button', {name: 'clear all'});
+        const button1 = getByRole('button', {name: '1'});
+        const plusBtn= getByRole('button', {name: 'plus'});
+        const displays = getAllByRole('textbox');
+        userEvent.click(button1);
+        userEvent.click(button1);
+        userEvent.click(plusBtn);
+        userEvent.click(button1);
+        userEvent.click(button1);
+        userEvent.click(button1);
+        userEvent.click(clearAllBtn);
+        expect(displays[0]).toHaveValue('0');
+        expect(displays[1]).toHaveValue('0');
+    });
 });
