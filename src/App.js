@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
-import {Display} from './components/Component.js';
-import {OperatorButtons} from './components/OperatorButtons.js';
-import {NumberButtons} from './components/NumberButtons.js';
+import {Display,
+    OperatorButtons,
+    NumberButtons} from './components/Components.js';
 import './App.css';
 
 const operators = [
