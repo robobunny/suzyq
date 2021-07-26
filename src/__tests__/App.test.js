@@ -1,0 +1,83 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import App from '../App.js';
+
+describe('Calculator App', () => {
+    test.skip('should perform calculations correctly', () => {
+        const {getByRole, getByText} = render(<App/>);
+        const button1 = getByRole('button', {name: '1'});
+        const button2 = getByRole('button', {name: '2'});
+        const button3 = getByRole('button', {name: '3'});
+        const plus = getByRole('button', {name: 'plus'});
+        const minus = getByRole('button', {name: 'minus'});
+        const clear = getByRole('button', {name: 'clear'});
+        const calculate = getByRole('button', {name: 'calculate'});
+        userEvent.click(button1);
+        userEvent.click(plus);
+        userEvent.click(button1);
+        userEvent.click(calculate);
+        const all2 = getByText('2');
+        // one for the display and one for the button
+        // XXX there's got to be a better way to test this
+        expect(all2.length).toBe(2);
+    });
+    it('should update active display when number buttons are pushed', () => {
+        const {getAllByRole, getByText} = render(<App/>);
+        const displays = getAllByRole('textbox');
+        const button1 = getByText('1');
+        const button7 = getByText('7');
+        const button3 = getByText('3');
+        userEvent.click(displays[0]);
+        userEvent.click(button1);
+        userEvent.click(button7);
+        userEvent.click(button3);
+        expect(displays[0]).toHaveValue('173');
+    });
+    it('should change active display when the inactive display gets focus', () => {
+        const {getAllByRole, getByText} = render(<App/>);
+        const displays = getAllByRole('textbox');
+        const button1 = getByText('1');
+        const button7 = getByText('7');
+        const button3 = getByText('3');
+        userEvent.click(displays[1]);
+        userEvent.click(button3);
+        userEvent.click(button7);
+        userEvent.click(button1);
+        userEvent.click(displays[0]);
+        userEvent.click(button1);
+        userEvent.click(button7);
+        userEvent.click(button3);
+        expect(displays[0]).toHaveValue('173');
+        expect(displays[1]).toHaveValue('371');
+    });
+    it('should update operator to plus when + button is clicked', () => {
+        const {getByRole, getAllByText} = render(<App/>);
+        const plusBtn = getByRole('button', {name: 'plus'});
+        userEvent.click(plusBtn);
+        const plus = getAllByText('+');
+        // one for the display and one for the button
+        // XXX there's got to be a better way to test this
+        expect(plus.length).toBe(2);
+    });
+    it('should update operator to minus when - button is clicked', () => {
+        const {getByRole, getAllByText} = render(<App/>);
+        const minusBtn = getByRole('button', {name: 'minus'});
+        userEvent.click(minusBtn);
+        const minus = getAllByText('-');
+        // one for the display and one for the button
+        // XXX there's got to be a better way to test this
+        expect(minus.length).toBe(2);
+    });
+    it('should change active display on operator button click', () => {
+        const {getAllByRole, getByText} = render(<App/>);
+        const displays = getAllByRole('textbox');
+        const button1 = getByText('1');
+        const plus = getByText('+');
+        userEvent.click(button1);
+        userEvent.click(plus);
+        userEvent.click(button1);
+        userEvent.click(button1);
+        expect(displays[0]).toHaveValue('1');
+        expect(displays[1]).toHaveValue('11');
+    })
+});
