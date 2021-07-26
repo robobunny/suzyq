@@ -88,12 +88,15 @@ describe('Calculator App', () => {
         userEvent.click(clearBtn);
         expect(displays[0]).toHaveValue('0');
     });
-    it('should clear both displays on click clear all button', () => {
-        const {getByRole, getAllByRole} = render(<App/>);
+    it('should clear both displays and operator on click clear all button',
+        () =>
+    {
+        const {getByRole, getAllByRole, getByLabelText} = render(<App/>);
         const clearAllBtn = getByRole('button', {name: 'clear all'});
         const button1 = getByRole('button', {name: '1'});
         const plusBtn= getByRole('button', {name: 'plus'});
         const displays = getAllByRole('textbox');
+        const operatorDisp = getByLabelText('operator');
         userEvent.click(button1);
         userEvent.click(button1);
         userEvent.click(plusBtn);
@@ -103,5 +106,6 @@ describe('Calculator App', () => {
         userEvent.click(clearAllBtn);
         expect(displays[0]).toHaveValue('0');
         expect(displays[1]).toHaveValue('0');
+        expect(operatorDisp.textContent).toBe('');
     });
 });
