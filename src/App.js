@@ -33,6 +33,13 @@ export default function App() {
         _setOperator(o);
         setActiveDisp(1);
     };
+    const clearActive = () => {
+        setInputs(activeDisp, '');
+    };
+    const clearAll = () => {
+        setOperands([0, 0]);
+        setActiveDisp(0);
+    };
     const calculate = () => {};
     return (
       <div className='calculator'>
@@ -52,11 +59,28 @@ export default function App() {
         <div className='buttons-container'>
           <NumberButtons
             onClick={(v)=>{
-              setInputs(activeDisp, operands[activeDisp].toString() + v.toString());
+              setInputs(activeDisp, operands[activeDisp].toString() 
+                  + v.toString());
             }}/>
           <OperatorButtons 
             operators={operators}
             setOperator={setOperator}/>
+          <div className='clear-buttons'>
+            <button
+              className='clear-button'
+              aria-label='clear'
+              onClick={clearActive}
+            >
+              C
+            </button>
+            <button
+              className='clear-all-button'
+              aria-label='clear all'
+              onClick={clearAll}
+            >
+              CA
+            </button>
+          </div>
           <button className='calculate-button' onClick={calculate}>
             Calculate!
           </button>
