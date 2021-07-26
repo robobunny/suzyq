@@ -44,14 +44,14 @@ export default function App() {
         setResult(operator.operation(...operands));
     };
     return (
-      <div className='calculator'>
-        <div className='display-container'>
+      <div className='container--calculator'>
+        <div className='container--displays'>
           <Display 
             value={operands[0]}
             index={0}
             onChangeInput={setInputs}
             setActiveDisp={setActiveDisp}/>
-          <p className='operator-display' aria-label='operator'>
+          <p className='display--operator' aria-label='operator'>
             {operator?.display || ''}
           </p>  
           <Display 
@@ -59,9 +59,11 @@ export default function App() {
             index={1}
             onChangeInput={setInputs}
             setActiveDisp={setActiveDisp}/>
-          <p className='result' aria-label='result'>{result || ''}</p>
+          <p className='display--result' aria-label='result'>
+            {result || ''}
+          </p>
         </div>
-        <div className='buttons-container'>
+        <div className='container--buttons'>
           <NumberButtons
             onClick={(v)=>{
               setInputs(activeDisp, operands[activeDisp].toString() 
@@ -70,23 +72,23 @@ export default function App() {
           <OperatorButtons 
             operators={operators}
             setOperator={setOperator}/>
-          <div className='clear-buttons'>
+          <div className='container--buttons--clear'>
             <button
-              className='clear-button'
+              className='button--clear'
               aria-label='clear'
               onClick={clearActive}
             >
               C
             </button>
             <button
-              className='clear-all-button'
+              className='button--clear-all'
               aria-label='clear all'
               onClick={clearAll}
             >
               CA
             </button>
           </div>
-          <button className='calculate-button' onClick={calculate}>
+          <button className='button--calculate' onClick={calculate}>
             Calculate!
           </button>
         </div>
