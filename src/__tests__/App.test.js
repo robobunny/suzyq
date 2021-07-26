@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App.js';
 
 describe('Calculator App', () => {
-    test.skip('should perform calculations correctly', () => {
+    it('should perform calculations correctly', () => {
         const {getByRole, getByText} = render(<App/>);
         const button1 = getByRole('button', {name: '1'});
         const button2 = getByRole('button', {name: '2'});
@@ -11,7 +11,7 @@ describe('Calculator App', () => {
         const plus = getByRole('button', {name: 'plus'});
         const minus = getByRole('button', {name: 'minus'});
         const clear = getByRole('button', {name: 'clear'});
-        const calculate = getByRole('button', {name: 'calculate'});
+        const calculate = getByRole('button', {name: 'Calculate!'});
         userEvent.click(button1);
         userEvent.click(plus);
         userEvent.click(button1);
