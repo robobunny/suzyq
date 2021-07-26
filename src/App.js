@@ -21,6 +21,7 @@ export default function App() {
     const [operands, setOperands] = useState([0, 0]);
     const [operator, _setOperator] = useState(undefined);
     const [activeDisp, setActiveDisp] = useState(0);
+    const [result, setResult] = useState(undefined);
     const setInputs = (index, input) => {
         let next = Number.parseInt(input)
         if (Number.isNaN(next))
@@ -40,7 +41,9 @@ export default function App() {
         setOperands([0, 0]);
         setActiveDisp(0);
     };
-    const calculate = () => {};
+    const calculate = () => {
+        setResult(operator.operation(...operands));
+    };
     return (
       <div className='calculator'>
         <div className='display-container'>
@@ -49,12 +52,15 @@ export default function App() {
             index={0}
             onChangeInput={setInputs}
             setActiveDisp={setActiveDisp}/>
-          <p className='operator-display'>{operator?.display || ''}</p>  
+          <p className='operator-display' aria-label='operator'>
+            {operator?.display || ''}
+          </p>  
           <Display 
             value={operands[1]}
             index={1}
             onChangeInput={setInputs}
             setActiveDisp={setActiveDisp}/>
+          <p className='result' aria-label='result'>{result || ''}</p>
         </div>
         <div className='buttons-container'>
           <NumberButtons
