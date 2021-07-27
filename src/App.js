@@ -43,7 +43,12 @@ export default function App() {
         setResult(undefined);
     };
     const calculate = () => {
-        setResult(operator.operation(...operands));
+        try {
+            setResult(operator.operation(...operands));
+        } catch (e) {
+            console.log(e)
+            clearAll();
+        }
     };
     return (
       <div className='container--calculator'>
