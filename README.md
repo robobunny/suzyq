@@ -18,6 +18,7 @@ To build and run the minified production build run:
 yarn build
 cd build
 <browser-cmd> index.html
+// e.g. firefox index.html
 ```
 
 To run the tests, do:
