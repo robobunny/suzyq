@@ -26,6 +26,6 @@
     0px -1px rgba(105, 105, 113, 0.5);
   --border-radius: 1.75em;
   font-family: "Source Code Pro", sans-serif;
-  font-size: calc(12px + 1vw);
+  font-size: calc(10px + 1vw);
 }
 
