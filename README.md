@@ -1,8 +1,9 @@
-# Getting Started with Create React App
+# Suzy's Calculator 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React
+App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to Build and Run
 
 In the project directory, you can run:
 
@@ -11,60 +12,94 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+To build and run the minified production build run:
+
+```bash
+yarn build
+cd build
+<browser-cmd> index.html
+```
+
+To run the tests, do:
 
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+See the section about [running
+tests](https://facebook.github.io/create-react-app/docs/running-tests) for more
+information.
 
-### `yarn build`
+## Design and coding decisions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Based on the criteria for this project I did my best to write the app so as to
+strike a balance between keeping it as simple as the nature of project required
+and displaying competency with requirements of larger projects (reusable
+components, etc.). On the one hand, "a little duplication is better than the
+wrong abstraction" (from _Clean Code_, I think??), and on the other hand, well,
+you're obviously not hiring me to write calculator apps for little Suzy so you
+want to see if I can break the code up into abstractions that make sense. So I made
+a couple conscious choices (and very many unconscious ones, probably) along the
+way:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### File structure:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Generally I think functions and variables that go together probably belong in
+the same file together. Every team probably does this differently. Once a
+function or object gets used in two different places, then it should be in its
+own module. So in a real-world project, the operators array could be in its own
+module, imported by App.js. Components.js, on the other hand, is an example of
+the sort of components that might get reused, so I put them in their own file,
+even though strict they're only getting called in App.js for now.
+In this context, that probably adds unnecessary complexity and goes against
+YAGNI, but in the real world these sorts of things go in a utility module
+usually.
 
-### `yarn eject`
+### More components vs. long jsx
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+I could have written something like:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```js
+// App.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+ ...
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+return 
+  <div>
+    <Screens/>
+    <Buttons/>
+  </div>
 
-## Learn More
+// Screens component
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+return 
+  <div>
+    <Display/>
+    <OperatorDisplay/>
+    <Display/>
+  </div>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+// Buttons component
 
-### Code Splitting
+return 
+  <div>
+    <ClearButtons/>
+    <NumberButtons/>
+    <OperatorButtons/>
+    <CalculateButton/>
+  </div>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+... you get the picture. We're three levels of abstraction deep and still just prop drilling and no functional DOM nodes to be found. It makes for shorter functions but way too many layers of abstraction, which renders the code less communicative in the end.
 
-### Analyzing the Bundle Size
+The jsx returned by the <App/> component is long (which _might_ be a smell), but it's still pretty DRY. Maybe the two "clear" buttons could be abstracted into a reusable component, especially if we wanted to eventually add more types of clear like clearDisp1, clearDisp2, clearResult, etc. etc.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## TODO
 
-### Making a Progressive Web App
+Given infinite time to work on this, I would have added the following features:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [ ] more graceful/useful error handling (e.g. display an error message to the user on click "Calculate" with empty inputs)
+- [ ] add a hook to clearAll if a number button gets pressed first after the Calculate button (like a normal calculator does)
+- [ ] run calculate on press enter in either one of the displays - simple as onSumbmit attribute in the input element, i think
+- [ ] change display to landscape on window.height < window.width
+- [ ] make operator buttons look good for arbitrary number of operations (using :last-child:nth-child pseudo selectors)
+- [ ] correct html `<head>` w proper meta-data
